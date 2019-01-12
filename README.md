@@ -9,7 +9,7 @@ Not all of SFML is exposed
 
 1. Include the module source...
     ```cpp
-    #include "ChaiScript_Extras_SFML/include/chaiscript/extras/box2d.hpp"
+    #include "ChaiScript_Extras_SFML/include/chaiscript/extras/sfml.hpp"
     ```
 
 2. Add the module to the ChaiScript instance...
