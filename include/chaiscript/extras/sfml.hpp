@@ -49,6 +49,7 @@ namespace chaiscript {
 			m->add(fun([](sf::Vector2f& lhs, const float f) { return sf::Vector2f(lhs.x * f, lhs.y * f); }), "*");
 			m->add(fun([](sf::Vector2f& lhs, const float f) { return sf::Vector2f(lhs.x / f, lhs.y / f); }), "/");
 			m->add(fun([](const sf::Vector2f& lhs, const sf::Vector2f& rhs) { return lhs == rhs; }), "==");
+			m->add(fun([](const sf::Vector2f& lhs, const sf::Vector2i& rhs) { return lhs.x == rhs.x && lhs.y == rhs.y; }), "==");
 			m->add(fun([](const sf::Vector2f& vec) { return "{ x: " + std::to_string(vec.x) + ", y: " + std::to_string(vec.y) + " }"; }), "to_string");
 
 			// sf::Vector2i.
@@ -62,6 +63,7 @@ namespace chaiscript {
 			m->add(fun([](sf::Vector2i& lhs, const sf::Vector2i& rhs) { return lhs + rhs; }), "+");
 			m->add(fun([](sf::Vector2i& lhs, const sf::Vector2i& rhs) { return lhs - rhs; }), "-");
 			m->add(fun([](const sf::Vector2i& lhs, const sf::Vector2i& rhs) { return lhs == rhs; }), "==");
+			m->add(fun([](const sf::Vector2i& lhs, const sf::Vector2f& rhs) { return lhs.x == rhs.x && lhs.y == rhs.y; }), "==");
 			m->add(fun([](const sf::Vector2i& vec) { return "{ x: " + std::to_string(vec.x) + ", y: " + std::to_string(vec.y) + " }"; }), "to_string");
 
 			// sf::String
@@ -214,30 +216,6 @@ namespace chaiscript {
 			m->add_global_const(const_var(sf::Color::Cyan), "Cyan");
 			m->add_global_const(const_var(sf::Color::Transparent), "Transparent");
 
-			// sf::View
-			m->add(user_type<sf::View>(), "View");
-			m->add(constructor<sf::View(const sf::FloatRect&)>(), "View");
-			m->add(constructor<sf::View(const sf::Vector2f&, const sf::Vector2f&) >(), "View");
-			m->add(fun(static_cast<void(sf::View::*)(float, float)>(&sf::View::setCenter)), "setCenter");
-			m->add(fun(static_cast<void(sf::View::*)(const sf::Vector2f&)>(&sf::View::setCenter)), "setCenter");
-			m->add(fun(static_cast<void(sf::View::*)(float, float)>(&sf::View::setSize)), "setSize");
-			m->add(fun(static_cast<void(sf::View::*)(const sf::Vector2f&)>(&sf::View::setSize)), "setSize");
-			m->add(fun(&sf::View::setRotation), "setRotation");
-			m->add(fun(&sf::View::setViewport), "setViewport");
-			m->add(fun(&sf::View::setViewport), "getCenter");
-			m->add(fun(&sf::View::setViewport), "getSize");
-			m->add(fun(&sf::View::setViewport), "getRotation");
-			m->add(fun(&sf::View::setViewport), "getViewport");
-			m->add(fun(static_cast<void(sf::View::*)(float, float)>(&sf::View::move)), "move");
-			m->add(fun(static_cast<void(sf::View::*)(const sf::Vector2f&)>(&sf::View::move)), "move");
-			m->add(fun(&sf::View::rotate), "rotate");
-			m->add(fun(&sf::View::zoom), "zoom");
-			m->add(fun(&sf::View::getTransform), "getTransform");
-			m->add(fun(&sf::View::getInverseTransform), "getInverseTransform");
-
-			// sf::Drawable
-			m->add(user_type<sf::Drawable>(), "Drawable");
-
 			// sf::Transformable
 			m->add(user_type<sf::Transformable>(), "Transformable");
 			m->add(constructor<sf::Transformable()>(), "Transformable");			
@@ -259,6 +237,31 @@ namespace chaiscript {
 			m->add(fun(static_cast<void(sf::Transformable::*)(const sf::Vector2f&)>(&sf::Transformable::scale)), "scale");
 			m->add(fun(&sf::Transformable::getTransform), "getTransform");
 			m->add(fun(&sf::Transformable::getInverseTransform), "getInverseTransform");
+
+			// sf::View
+			m->add(user_type<sf::View>(), "View");
+			m->add(constructor<sf::View(const sf::FloatRect&)>(), "View");
+			m->add(constructor<sf::View(const sf::Vector2f&, const sf::Vector2f&) >(), "View");
+			m->add(constructor<sf::View(const sf::View&)>(), "View");
+			m->add(fun(static_cast<void(sf::View::*)(float, float)>(&sf::View::setCenter)), "setCenter");
+			m->add(fun(static_cast<void(sf::View::*)(const sf::Vector2f&)>(&sf::View::setCenter)), "setCenter");
+			m->add(fun(static_cast<void(sf::View::*)(float, float)>(&sf::View::setSize)), "setSize");
+			m->add(fun(static_cast<void(sf::View::*)(const sf::Vector2f&)>(&sf::View::setSize)), "setSize");
+			m->add(fun(&sf::View::setRotation), "setRotation");
+			m->add(fun(&sf::View::setViewport), "setViewport");
+			m->add(fun(&sf::View::setViewport), "getCenter");
+			m->add(fun(&sf::View::setViewport), "getSize");
+			m->add(fun(&sf::View::setViewport), "getRotation");
+			m->add(fun(&sf::View::setViewport), "getViewport");
+			m->add(fun(static_cast<void(sf::View::*)(float, float)>(&sf::View::move)), "move");
+			m->add(fun(static_cast<void(sf::View::*)(const sf::Vector2f&)>(&sf::View::move)), "move");
+			m->add(fun(&sf::View::rotate), "rotate");
+			m->add(fun(&sf::View::zoom), "zoom");
+			m->add(fun(&sf::View::getTransform), "getTransform");
+			m->add(fun(&sf::View::getInverseTransform), "getInverseTransform");
+
+			// sf::Drawable
+			m->add(user_type<sf::Drawable>(), "Drawable");
 
 			// sf::Image
 			m->add(user_type<sf::Image>(), "Image");
