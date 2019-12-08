@@ -456,7 +456,7 @@ namespace chaiscript {
 			m->add(fun(&sf::VertexBuffer::create), "create");
 			m->add(fun(&sf::VertexBuffer::getVertexCount), "getVertexCount");
 			m->add(fun(static_cast<bool( sf::VertexBuffer::*)(const sf::Vertex*)>(&sf::VertexBuffer::update)), "update");
-			m->add(fun(static_cast<bool( sf::VertexBuffer::*)(const sf::Vertex*, unsigned, unsigned)>(&sf::VertexBuffer::update)), "update");
+			m->add(fun(static_cast<bool( sf::VertexBuffer::*)(const sf::Vertex*, std::size_t, unsigned)>(&sf::VertexBuffer::update)), "update");
 			m->add(fun(static_cast<bool( sf::VertexBuffer::*)(const sf::VertexBuffer&)>(&sf::VertexBuffer::update)), "update");
 			m->add(fun([](sf::VertexBuffer& left,const sf::VertexBuffer& right)
 			{
